@@ -258,7 +258,47 @@ button { font: inherit; color: inherit; }
   .screen { height: 700px; border-radius: 26px; }
   .tv { grid-template-columns: 1fr; }
 }
+
+/* ---------- live agent panel ---------- */
+.agent { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-text) 18%, transparent); }
+.ag-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ag-head h2 { margin: 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); font-weight: 800; }
+.ag-state { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.ag-state i { width: 8px; height: 8px; border-radius: 50%; background: var(--green-text); display: block; }
+.ag-state.on i { background: var(--orange); animation: agpulse 0.9s ease-in-out infinite; }
+.ag-state.on { color: var(--orange-text); }
+@keyframes agpulse { 50% { transform: scale(1.6); opacity: 0.5; } }
+.ag-loop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.ag-loop span { text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 4px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); transition: background 0.25s, color 0.25s, border-color 0.25s; }
+.ag-loop span.on { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
+.feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); scroll-behavior: smooth; }
+.ev { display: grid; grid-template-columns: 54px 1fr; gap: 8px; font-size: 13px; line-height: 1.42; animation: evin 0.35s ease-out; }
+@keyframes evin { from { opacity: 0; transform: translateY(6px); } }
+.ev .tm { font-family: var(--font-mono); font-size: 11px; color: var(--muted); padding-top: 2px; }
+.ev .ph { font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.ph.sense { color: var(--blue); } .ph.decide { color: var(--accent-text); } .ph.act { color: var(--orange-text); } .ph.learn { color: var(--green-text); } .ph.guard { color: var(--pink-text); }
+.ev code { display: block; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; margin-top: 4px; white-space: pre-wrap; word-break: break-word; }
+.ev.blocked > div { border-left: 3px solid var(--pink); padding-left: 8px; }
+.rt { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 0 7px; border-radius: 999px; margin-left: 6px; border: 1px solid currentColor; vertical-align: 1px; line-height: 1.6; white-space: nowrap; }
+.rt.own { color: var(--green-text); } .rt.assoc { color: var(--orange-text); } .rt.mgr { color: var(--blue); }
+.rt.never { color: #FFFFFF; background: var(--pink); border-color: var(--pink); }
+.ag-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ag-key { display: flex; flex-wrap: wrap; gap: 4px; }
+.ag-key .rt { margin-left: 0; }
+.btn.small { padding: 5px 11px; font-size: 13px; }
+.whatif { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 8px; }
+.whatif label { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 13px; }
+.whatif label b { font-family: var(--font-mono); color: var(--accent-text); }
+.whatif input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--pink); }
+.wi-out { font-size: 13px; background: var(--bg); border-radius: 10px; padding: 8px 10px; }
+.guards { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; border-top: 1px solid var(--line); padding-top: 10px; }
+.guards .lbl { margin-right: 4px; }
+.guards button { font-size: 12px; font-weight: 600; border: 1px dashed var(--pink-text); color: var(--pink-text); background: transparent; border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.guards button:hover { background: color-mix(in srgb, var(--pink) 10%, transparent); }
+.ag-foot { margin: 0; font-size: 12px; color: var(--muted); }
+@media (max-width: 760px) { .feed { height: 260px; } }
 @media (prefers-reduced-motion: reduce) {
+  .ev, .ag-state.on i { animation: none; }
   .cue, .reticle .laser { animation: none; }
   .progress > i { transition: none; }
 }
@@ -269,7 +309,7 @@ button { font: inherit; color: inherit; }
     <div class="brand">
       <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><path d="M12 4v3"/></svg></div>
       <div>
-        <h1>Floor Captain <span class="pill">Concept prototype</span></h1>
+        <h1>Floor Captain <span class="pill">Concept prototype</span><span class="pill" style="color:var(--pink-text);border-color:var(--pink-text)">Live agent</span></h1>
         <p>One app and one AI agent for associates in off-price stores, from our Week 3 point of view for Ross and TJX. Illustrative data.</p>
       </div>
     </div>
@@ -291,10 +331,10 @@ button { font: inherit; color: inherit; }
       <div class="device"><div class="screen" id="screen"></div></div>
       <p class="hint" id="hint"></p>
     </section>
-    <aside class="notes" id="notes" aria-live="polite"></aside>
+    <aside class="notes"><section class="agent" id="agent" aria-label="Floor Captain agent, live"></section><div id="notes" style="display:contents"></div></aside>
   </main>
 
-  <p class="foot">Concept prototype for a student consulting project, not a Ross or TJX product. Names, cartons, prices and store numbers are made up. The use cases (UC1 to UC4) and KPIs follow our Week 3 business case.</p>
+  <p class="foot">Concept prototype for a student consulting project, not a Ross or TJX product. Names, cartons, prices and store numbers are made up. The use cases (UC1 to UC4) and KPIs follow our Week 3 business case. The agent panel runs in your browser with no AI calls: forecasts use an M/M/c queue model and rankings use simple scores, the same logic as our agent code.</p>
 </div>
 
 <script>
@@ -406,6 +446,287 @@ button { font: inherit; color: inherit; }
   const later = (fn, ms) => { const t = setTimeout(fn, ms); timers.push(t); };
   const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
   const money = (v) => '$' + v.toFixed(2);
+
+  // ======================================================================
+  // Floor Captain agent: a live, built-in agent (no AI calls, works offline)
+  // Same logic as the Python agent: M/M/c queue forecast, carton and task
+  // ranking, nearest-free routing, decision rights and an audit log.
+  // ======================================================================
+  const AGENT_DATA = {
+    cartons: [ // pace = sales vs plan, gap = share of the rack empty, promo = on this weekend's ad
+      { id: '4471', what: 'Women’s denim jackets', pace: 2.3, gap: 0.60, promo: 0 },
+      { id: '4468', what: 'Men’s tees, M–L', pace: 1.4, gap: 0.90, promo: 0 },
+      { id: '4480', what: 'Kids’ trainers', pace: 1.6, gap: 0.50, promo: 0 },
+      { id: '4492', what: 'Throw pillows', pace: 1.1, gap: 0.30, promo: 1 }
+    ],
+    tasks: [ // value = sales or cost at stake ($), urgency 1-3
+      { id: 1, value: 380, urgency: 3 },
+      { id: 2, value: 120, urgency: 2 },
+      { id: 3, value: 90, urgency: 2 },
+      { id: 4, value: 75, urgency: 1 }
+    ],
+    people: [
+      { name: 'Priya', dist: 20, free: true, till: true },
+      { name: 'Jay', dist: 35, free: true, till: true },
+      { name: 'Mia', dist: 15, free: false, till: true, doing: 'on till 2' },
+      { name: 'Kim', dist: 60, free: true, till: false, doing: 'stockroom' }
+    ],
+    minsPerCheckout: 2.5,
+    profile: [0.85, 0.93, 1.0, 0.98, 0.9],
+    slots: ['12:25', '12:30', '12:35', '12:40', '12:45']
+  };
+  const RIGHTS = {
+    own: 'on its own', assoc: 'asks the associate', mgr: 'asks the manager', never: 'never'
+  };
+  const GUARDS = {
+    shift: { ask: 'Dana: “Extend Priya’s shift by 2 hours”', tool: 'change_shift(Priya, +2 h)',
+      why: 'Shifts and pay stay with the manager. Fair Workweek laws need advance notice.' },
+    rank: { ask: '“Rank associates by speed”', tool: 'rank_people(by=speed)',
+      why: 'It ranks tasks, never people.' },
+    cam: { ask: '“Use the cameras to spot shoplifters”', tool: 'read_cameras()',
+      why: 'No cameras and no shopper data. Theft alerts come from till and tag events only.' }
+  };
+  let AG;
+  const agFresh = () => ({ logs: [[], [], [], [], []], ran: [0, 0, 0, 0, 0], sec: [0, 0, 0, 0, 0],
+    phase: [null, null, null, null, null], what: { peak: 90, tills: 4 }, running: false });
+  AG = agFresh();
+
+  // ---- maths ----
+  function erlang(arrPerHour, tills, mpc) {
+    const lam = arrPerHour / 60, mu = 1 / mpc, a = lam / mu, rho = a / tills;
+    if (rho >= 1) return { lq: Infinity, wq: Infinity, rho };
+    let s = 0, f = 1;
+    for (let k = 0; k < tills; k++) { if (k > 0) f *= k; s += Math.pow(a, k) / f; }
+    const fc = f * tills;
+    const top = Math.pow(a, tills) / (fc * (1 - rho));
+    const pw = top / (s + top);
+    const lq = pw * rho / (1 - rho);
+    return { lq, wq: lq / lam, rho };
+  }
+  function rushForecast() {
+    const { peak, tills } = AG.what, mpc = AGENT_DATA.minsPerCheckout;
+    const without = AGENT_DATA.profile.map((p) => erlang(peak * p, tills, mpc).lq);
+    const withPop = AGENT_DATA.profile.map((p) => erlang(peak * p, tills + 1, mpc).lq);
+    const maxW = Math.max(...without), maxP = Math.max(...withPop);
+    const peakAt = AGENT_DATA.slots[without.indexOf(maxW)];
+    const atPeak = erlang(peak, tills, mpc), atPeakPop = erlang(peak, tills + 1, mpc);
+    return { without, withPop, maxW, maxP, peakAt, tills, peak, needed: maxW > 3, atPeak, atPeakPop };
+  }
+  const fmtQ = (v) => (!isFinite(v) || v > 20) ? '20+' : String(Math.round(v));
+  const fmtW = (v) => (!isFinite(v) || v > 15) ? '15+' : (v < 1 ? 'under 1' : String(Math.round(v)));
+  function rankCartons() {
+    return AGENT_DATA.cartons.map((c) => ({ ...c, score: Math.round(c.pace * c.gap * 100 + c.promo * 30) }))
+      .sort((x, y) => y.score - x.score);
+  }
+  function rankTasks() {
+    return TASKS.map((t) => {
+      const d = AGENT_DATA.tasks.find((x) => x.id === t.id);
+      return { ...t, ...d, score: Math.round(d.value * d.urgency / t.mins) };
+    }).sort((x, y) => y.score - x.score);
+  }
+  function nearestFree(tillOnly) {
+    return AGENT_DATA.people.filter((p) => p.free && (!tillOnly || p.till)).sort((a, b) => a.dist - b.dist);
+  }
+
+  // ---- event log ----
+  function clock(step) {
+    const base = STEPS[step].time; // e.g. '6:10 am'
+    const m = base.match(/(\d+):(\d+)/);
+    let h = +m[1], mi = +m[2];
+    const secs = AG.sec[step];
+    const tot = mi * 60 + secs;
+    mi = Math.floor(tot / 60); const s = tot % 60;
+    h += Math.floor(mi / 60); mi = mi % 60;
+    return `${h}:${String(mi).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+  function addEvent(step, ev, gap = 3) {
+    AG.sec[step] += gap;
+    const e = { ...ev, tm: clock(step) };
+    AG.logs[step].push(e);
+    AG.phase[step] = ev.ph === 'Guard' ? AG.phase[step] : ev.ph;
+    if (step === S.step) { appendEvent(e); setPhase(AG.phase[step]); }
+  }
+  function stream(step, events, gap = 520) {
+    AG.running = true; setRunning(true);
+    events.forEach((ev, i) => later(() => {
+      addEvent(step, ev, ev.gap || 3);
+      if (i === events.length - 1) { AG.running = false; setRunning(false); }
+    }, gap * (i + 1)));
+  }
+
+  // ---- one agent cycle per screen ----
+  function cycle(step) {
+    const ev = [];
+    if (step === 0) {
+      const r = rankCartons(), top = r[0];
+      ev.push({ ph: 'Sense', t: 'Read truck 2’s manifest.', tool: 'read_manifest(truck=2) → 118 cartons, 31 styles' });
+      ev.push({ ph: 'Sense', t: 'Read sales pace and floor gaps.', tool: `read_sales_pace(days=3) → denim ${top.pace}× plan · read_floor_gaps() → 14 racks under half full` });
+      ev.push({ ph: 'Decide', t: `Ranked all 118 cartons. Score = sales pace × rack gap, plus a bonus if it is on this weekend’s ad.`,
+        tool: 'rank_cartons() → ' + r.map((c) => `#${c.id} ${c.score}`).join(' · ') });
+      ev.push({ ph: 'Decide', t: '12 cartons score 50 or more, so they go before lunch. The other 106 can wait until after 11 am.' });
+      ev.push({ ph: 'Act', r: 'own', t: 'Re-ordered the carton list on Sam’s handheld, with best sellers first.', tool: 'push_carton_list(Sam, top=12)' });
+      ev.push({ ph: 'Learn', t: 'Last Saturday 9 of 12 priority cartons were out by 11:00, so the cut-off stays at 50.' });
+    }
+    if (step === 1) {
+      const r = rankTasks();
+      ev.push({ ph: 'Sense', t: 'Read Priya’s shift and the open tasks.', tool: 'read_shift(Priya) → 9:00–15:00 · read_tasks() → 4 open, markdowns due 6 pm' });
+      ev.push({ ph: 'Decide', t: 'Ranked tasks by the dollars at stake per minute of work, times urgency. It ranks tasks, never people.',
+        tool: 'rank_tasks() → ' + r.map((t) => `T${t.id} ${t.score}`).join(' · ') });
+      ev.push({ ph: 'Act', r: 'own', t: `Sent Priya a ranked list, with “${r[0].name}” first and the reason attached.`, tool: 'push_task_list(Priya)' });
+      ev.push({ ph: 'Act', r: 'own', t: 'Turned Dana’s 9:30 walk into a 3-minute photo check, and translated head office’s update.', tool: 'create_photo_check(store_front) · translate(update, [es, vi])' });
+      ev.push({ ph: 'Learn', t: 'Over the last 4 Saturdays, filling rack W-12 took 11 minutes on average. The estimate stays at 12.' });
+    }
+    if (step === 2) {
+      const n = nearestFree(false), first = n[0], second = n[1];
+      ev.push({ ph: 'Sense', t: 'A help call came in from the fitting-room QR code.', tool: 'qr_call(room=3) → “denim jacket, size M”' });
+      ev.push({ ph: 'Sense', t: 'Checked who is free and how far away they are.', tool: 'who_is_free() → ' + AGENT_DATA.people.map((p) => `${p.name} ${p.free ? p.dist + ' m' : '(busy)'}`).join(' · ') });
+      ev.push({ ph: 'Decide', t: `${first.name} is the nearest free associate (${first.dist} m), so she gets the call. ${second.name} is next if she passes.` });
+      ev.push({ ph: 'Act', r: 'own', t: `Paged ${first.name}. The shopper’s screen says “${first.name} is coming”.`, tool: `page_associate(${first.name}, fitting_room_3)` });
+      ev.push({ ph: 'Learn', t: 'Started the clock: the target is help within 2 minutes.' });
+    }
+    if (step === 3) {
+      const f = rushForecast();
+      ev.push({ ph: 'Sense', t: `Read till pace and door counts: ${f.tills} tills open, 2.5 minutes per checkout, door traffic up 25% on last Saturday.`,
+        tool: 'read_till_pace() · door_count(last=15 min)' });
+      ev.push({ ph: 'Decide', t: `Forecast the next 30 minutes. The peak comes at ${f.peakAt}: ${fmtQ(f.maxW)} waiting with ${f.tills} tills, or ${fmtQ(f.maxP)} with one pop-up till.`,
+        tool: `forecast_checkout(peak=${f.peak}/h, tills=${f.tills}) → wait ${fmtW(f.atPeak.wq)} min · with pop-up ${fmtW(f.atPeakPop.wq)} min` });
+      if (f.needed) {
+        const p = nearestFree(true)[0];
+        ev.push({ ph: 'Decide', t: `More than 3 would be waiting, so it needs a pop-up till. ${p.name} is the nearest free associate who is till-trained.` });
+        ev.push({ ph: 'Decide', t: 'Conflict: Priya was due to fill rack W-12 next. The till wins, and Sam takes the carton when he is free in 4 minutes.' });
+        ev.push({ ph: 'Act', r: 'assoc', t: `Asked ${p.name} to open a pop-up till. It is waiting for her approval.`, tool: `request_pop_up_till(${p.name})` });
+        ev.push({ ph: 'Act', r: 'own', t: 'Moved carton W-12 to Sam’s list.', tool: 'push_carton_list(Sam, add=W-12)' });
+      } else {
+        ev.push({ ph: 'Decide', t: `At most ${fmtQ(f.maxW)} would be waiting, so no pop-up till is needed and Priya stays on the floor.` });
+      }
+    }
+    if (step === 4) {
+      ev.push({ ph: 'Sense', t: 'Read the day so far: tills, trucks, help calls and tasks.', tool: 'read_store_day() → 3 agent actions, 1 approval pending' });
+      ev.push({ ph: 'Decide', t: 'Saturday traffic is forecast 18% higher. Two hours of Thursday markdowns can move without missing the deadline.' });
+      ev.push({ ph: 'Act', r: 'mgr', t: 'Proposed moving 2 hours from Thursday markdowns to Saturday floor cover. It is waiting for Dana.', tool: 'propose_schedule_change(Thu→Sat, 2 h)' });
+      ev.push({ ph: 'Learn', t: 'Weekly review: rush forecasts were within one shopper in 4 of 5 rushes this week.' });
+    }
+    return ev;
+  }
+  function agentEnter(step) {
+    renderAgent();
+    if (!AG.ran[step]) { AG.ran[step] = 1; stream(step, cycle(step)); }
+  }
+  function rerun() {
+    const step = S.step;
+    addEvent(step, { ph: 'Sense', t: '<i>Re-planning: it runs every few minutes.</i>' }, 60);
+    stream(step, cycle(step), 420);
+  }
+
+  // ---- reactions to taps on the phone ----
+  function agentHook(a, b) {
+    const st = S.step;
+    const E = (ev, gap) => addEvent(st, ev, gap);
+    switch (a) {
+      case 'putaway': { const c = CARTONS.find((x) => x.id === S.truck.last);
+        E({ ph: 'Act', r: 'own', t: `Sam scanned #${c.id}, so the agent showed rack ${c.rack} and the route.`, tool: `locate_rack(#${c.id}) → ${c.rack}, aisle ${c.aisle}` }, 20);
+        E({ ph: 'Learn', t: `${S.truck.done} of 12 best sellers are on the floor, on track for 10:40.` }); break; }
+      case 'truckwhy': if (S.truck.why) E({ ph: 'Decide', t: 'Explained the ranking to Sam. Every suggestion comes with its reason.' }); break;
+      case 'taskwhy': if (S.tasks.why) { const t = rankTasks()[0]; E({ ph: 'Decide', t: `Explained: ${t.name.toLowerCase()} has $${t.value} at stake over ${t.mins} minutes, the highest per minute.` }); } break;
+      case 'task': { const id = +b.dataset.task, t = TASKS.find((x) => x.id === id);
+        if (id === 4 && S.tasks.mode === 'camera') E({ ph: 'Act', r: 'own', t: 'Opened the camera for the photo check.' });
+        else if (S.tasks.done.includes(id)) { E({ ph: 'Learn', t: `Priya finished “${t.name}”. The agent logged the real time to tune future estimates.` }, 40); }
+        break; }
+      case 'shoot': E({ ph: 'Act', r: 'own', t: 'Checked the photo against the display plan, then sent it to Dana: store walk done.', tool: 'check_photo(store_front) → OK' }, 15); break;
+      case 'lang': E({ ph: 'Act', r: 'own', t: `Showed the head-office update in ${b.textContent}.`, tool: `translate(update, ${b.dataset.lang})` }, 2); break;
+      case 'accept': E({ ph: 'Learn', t: 'Priya accepted in 4 seconds. The shopper sees “Priya is coming”.' }, 4); break;
+      case 'pass': E({ ph: 'Act', r: 'own', t: 'Priya passed, so the call went to Jay, next nearest at 35 m. Jay accepted in 6 seconds.', tool: 'page_associate(Jay, fitting_room_3)' }, 6); break;
+      case 'ask': E({ ph: 'Act', r: 'own', t: `Answered “${b.dataset.ask}” from ${ANSWERS[b.dataset.ask].src.toLowerCase()}.`, tool: `ask_me("${b.dataset.ask}")` }, 8); break;
+      case 'fetch': E({ ph: 'Act', r: 'own', t: 'Paged Kim in the stockroom to bring a size M from bin B-14.', tool: 'page_associate(Kim, fetch B-14 size M)' }, 5); break;
+      case 'ptt': E({ ph: 'Act', r: 'own', t: 'Sent Priya’s voice note to the stockroom channel, replacing the radio.', tool: 'ptt_send(stockroom)' }, 3); break;
+      case 'approve': E({ ph: 'Act', r: 'assoc', t: 'Priya approved, so her handheld is now a pop-up till.', tool: 'open_pop_up_till(Priya) → 5 tills open' }, 6); break;
+      case 'notnow': { const p = nearestFree(true).filter((x) => x.name !== 'Priya')[0];
+        E({ ph: 'Act', r: 'assoc', t: `Priya said not now, which is fine: people can always say no. Asking ${p.name} next.`, tool: `request_pop_up_till(${p.name})` }, 6); break; }
+      case 'nextshopper': { const f = rushForecast();
+        E({ ph: 'Learn', t: `The line peaked at 3, against a forecast of ${fmtQ(f.maxP)} with the pop-up till, so the model holds.` }, 240); break; }
+      case 'close': E({ ph: 'Act', r: 'own', t: 'Till closed. Priya is back on the floor and her next task is ranked first.' }, 30); break;
+      case 'mgryes': E({ ph: 'Act', r: 'mgr', t: 'Dana approved. Saturday cover was added and the change logged with her name.', tool: 'apply_schedule_change(approved_by=Dana)' }, 5); break;
+      case 'mgrno': E({ ph: 'Act', r: 'mgr', t: 'Dana declined. Nothing changed, and the reason was logged.' }, 5); break;
+    }
+  }
+  function guard(key) {
+    const g = GUARDS[key];
+    addEvent(S.step, { ph: 'Guard', r: 'never', blocked: true, t: `${g.ask} → <b>Blocked.</b> ${g.why}`, tool: `${g.tool} → denied by guardrail` }, 4);
+  }
+
+  // ---- console UI ----
+  function renderAgent() {
+    const step = S.step, f = step === 3 ? rushForecast() : null;
+    $('#agent').innerHTML = `
+      <div class="ag-head">
+        <h2>Floor Captain agent · live</h2>
+        <span class="ag-state" id="agState"><i></i><span>${AG.running ? 'Thinking' : 'Watching the store'}</span></span>
+      </div>
+      <div class="ag-loop" id="agLoop">${['Sense', 'Decide', 'Act', 'Learn'].map((k) => `<span data-ph="${k}">${k}</span>`).join('')}</div>
+      <div class="feed" id="agFeed" aria-live="polite"></div>
+      <div class="ag-row">
+        <button type="button" class="btn small" data-ag="rerun">Re-plan now</button>
+        <span class="ag-key"><span class="rt own">on its own</span><span class="rt assoc">asks the associate</span><span class="rt mgr">asks the manager</span><span class="rt never">never</span></span>
+      </div>
+      ${step === 3 ? `
+      <div class="whatif">
+        <div class="lbl" style="color:var(--orange-text)">What if? Change the store and watch the agent re-plan</div>
+        <label>Shoppers per hour at the lunch peak <b id="wiPeak">${AG.what.peak}</b><input type="range" min="50" max="120" step="5" value="${AG.what.peak}" data-wi="peak"></label>
+        <label>Tills open <b id="wiTills">${AG.what.tills}</b><input type="range" min="3" max="6" step="1" value="${AG.what.tills}" data-wi="tills"></label>
+        <div class="wi-out" id="wiOut">${wiText(f)}</div>
+      </div>` : ''}
+      <div class="guards">
+        <span class="lbl" style="color:var(--pink-text)">Test a guardrail</span>
+        <button type="button" data-guard="shift">Extend Priya’s shift</button>
+        <button type="button" data-guard="rank">Rank associates</button>
+        <button type="button" data-guard="cam">Use cameras</button>
+      </div>
+      <p class="ag-foot">Runs in your browser on made-up data, using the same logic as our agent code. The decisions come from forecasting and ranking maths; the agent only suggests or asks before anything changes someone’s work.</p>`;
+    AG.logs[step].forEach(appendEvent);
+    setPhase(AG.phase[step]);
+    setRunning(AG.running);
+  }
+  function wiText(f) {
+    return `Peak at ${f.peakAt}: <b>${fmtQ(f.maxW)}</b> waiting with ${f.tills} tills, <b>${fmtQ(f.maxP)}</b> with a pop-up till. ` +
+      (f.needed ? '<span style="color:var(--pink-text);font-weight:700">Pop-up till needed.</span>' : '<span style="color:var(--green-text);font-weight:700">No pop-up till needed.</span>');
+  }
+  function appendEvent(e) {
+    const feed = $('#agFeed'); if (!feed) return;
+    const d = document.createElement('div');
+    d.className = 'ev' + (e.blocked ? ' blocked' : '');
+    d.innerHTML = `<span class="tm">${e.tm}</span><div><span class="ph ${e.ph.toLowerCase()}">${e.ph === 'Guard' ? 'Guardrail' : e.ph}</span>${e.r ? `<span class="rt ${e.r}">${RIGHTS[e.r]}</span>` : ''}<span class="txt"> ${e.t}</span>${e.tool ? `<code>${e.tool}</code>` : ''}</div>`;
+    feed.appendChild(d);
+    feed.scrollTop = feed.scrollHeight;
+  }
+  function setPhase(ph) {
+    document.querySelectorAll('#agLoop span').forEach((s) => s.classList.toggle('on', s.dataset.ph === ph));
+  }
+  function setRunning(on) {
+    const s = $('#agState'); if (!s) return;
+    s.classList.toggle('on', on);
+    s.querySelector('span').textContent = on ? 'Thinking' : 'Watching the store';
+  }
+  function agentClick(b) {
+    if (b.dataset.ag === 'rerun') rerun();
+    if (b.dataset.guard) guard(b.dataset.guard);
+  }
+  function onWhatIf(input, commit) {
+    AG.what[input.dataset.wi] = +input.value;
+    $('#wiPeak').textContent = AG.what.peak;
+    $('#wiTills').textContent = AG.what.tills;
+    const f = rushForecast();
+    $('#wiOut').innerHTML = wiText(f);
+    if (S.rush.mode === 'alert' || S.rush.mode === 'calm') S.rush.mode = f.needed ? 'alert' : 'calm';
+    render();
+    if (commit) {
+      addEvent(3, { ph: 'Decide', t: `What if: ${f.peak} shoppers an hour and ${f.tills} tills. The peak would be ${fmtQ(f.maxW)} waiting, or ${fmtQ(f.maxP)} with a pop-up till. ` +
+        (f.needed ? 'A pop-up till is needed, so it asks the nearest till-trained associate.' : 'No pop-up till is needed, so nobody is pulled off the floor.'),
+        tool: `forecast_checkout(peak=${f.peak}/h, tills=${f.tills})` }, 20);
+    }
+  }
+  document.addEventListener('input', (ev) => { if (ev.target.dataset && ev.target.dataset.wi) onWhatIf(ev.target, false); });
+  document.addEventListener('change', (ev) => { if (ev.target.dataset && ev.target.dataset.wi) onWhatIf(ev.target, true); });
+
 
   // ---------------- shared app chrome ----------------
   function chrome(step, inner, overlay = '') {
@@ -583,17 +904,19 @@ button { font: inherit; color: inherit; }
   // ---------------- step 4: rush ----------------
   function rushScreen() {
     const R = S.rush;
+    const F = rushForecast();
+    if (R.mode === 'alert' || R.mode === 'calm') R.mode = F.needed ? 'alert' : 'calm';
     let overlay = '';
-    const forecast = `<svg viewBox="0 0 280 96" role="img" aria-label="Forecast of shoppers waiting: 4 now, rising to 11 in 10 minutes without a pop-up till, staying at 3 or fewer with one">
-      ${[4, 7, 11, 10, 6].map((v, i) => `<rect x="${18 + i * 52}" y="${80 - v * 6}" width="30" height="${v * 6}" rx="4" fill="#F8E1EA"/><text x="${33 + i * 52}" y="${74 - v * 6}" text-anchor="middle" font-size="10" font-family="Poppins, Arial" font-weight="700" fill="#9C1F57">${v}</text>`).join('')}
-      <polyline points="${[2, 3, 3, 2, 1].map((v, i) => `${33 + i * 52},${80 - v * 6}`).join(' ')}" fill="none" stroke="#2F6B1F" stroke-width="2.5"/>
-      ${[2, 3, 3, 2, 1].map((v, i) => `<circle cx="${33 + i * 52}" cy="${80 - v * 6}" r="3" fill="#2F6B1F"/>`).join('')}
+    const forecast = `<svg viewBox="0 0 280 96" role="img" aria-label="Forecast of shoppers waiting, without and with a pop-up till">
+      ${F.without.map((q) => Math.min(10, isFinite(q) ? Math.round(q) : 99)).map((v, i) => `<rect x="${18 + i * 52}" y="${80 - v * 6}" width="30" height="${v * 6}" rx="4" fill="#F8E1EA"/><text x="${33 + i * 52}" y="${74 - v * 6}" text-anchor="middle" font-size="10" font-family="Poppins, Arial" font-weight="700" fill="#9C1F57">${v >= 10 && F.without[i] > 10 ? fmtQ(F.without[i]) : v}</text>`).join('')}
+      <polyline points="${F.withPop.map((q) => Math.min(10, Math.round(q))).map((v, i) => `${33 + i * 52},${80 - v * 6}`).join(' ')}" fill="none" stroke="#2F6B1F" stroke-width="2.5"/>
+      ${F.withPop.map((q) => Math.min(10, Math.round(q))).map((v, i) => `<circle cx="${33 + i * 52}" cy="${80 - v * 6}" r="3" fill="#2F6B1F"/>`).join('')}
       ${['12:25', '12:30', '12:35', '12:40', '12:45'].map((t, i) => `<text x="${33 + i * 52}" y="94" text-anchor="middle" font-size="9" font-family="IBM Plex Mono, DejaVu Sans Mono, monospace" fill="#69647A">${t}</text>`).join('')}
     </svg>`;
     if (R.mode === 'alert') {
       overlay = `<div class="overlay"><div class="sheet" role="alertdialog" aria-label="Rush alert" style="border:2px solid #BE266A">
         <div class="lbl" style="color:#9C1F57">${svg('spark', '#9C1F57')} Rush in about 10 minutes</div>
-        <div class="h2">11 shoppers forecast at the front, 4 tills open</div>
+        <div class="h2">${fmtQ(F.maxW)} shoppers forecast at the front at ${F.peakAt}, ${F.tills} tills open</div>
         <div style="font-size:13px">Open a pop-up till? You are the closest associate.</div>
         <div class="svgbox">${forecast}</div>
         <div style="font-size:11.5px;color:var(--app-muted)">Pink: people waiting without a pop-up till. Green: with one.</div>
@@ -611,7 +934,12 @@ button { font: inherit; color: inherit; }
       </div>`;
     }
     let inner;
-    if (R.mode === 'later') {
+    if (R.mode === 'calm') {
+      inner = `<div class="h2">Front end: no rush forecast</div><div class="sub">${F.tills} tills open · ${F.peak} shoppers an hour at the peak</div>
+        <div class="card" style="background:var(--app-mint);border:0;color:#2F6B1F"><b style="font-size:16px">Peak at ${F.peakAt}: ${fmtQ(F.maxW)} waiting</b><br><span style="font-size:13px">Three or fewer, so the agent keeps you on the floor. No pop-up till needed.</span></div>
+        <div class="svgbox">${forecast}</div>
+        <div style="font-size:11.5px;color:var(--app-muted)">Pink: people waiting with today’s tills. Green: with a pop-up till.</div>`;
+    } else if (R.mode === 'later') {
       inner = `<div class="h2">Not now</div><div class="sub">The agent will ask Jay, who is next closest</div>
         <div class="card" style="font-size:13px">People can always say no. The agent never opens a till or changes a schedule by itself.</div>
         <button type="button" class="cta" data-act="replay">Replay the rush alert</button>`;
@@ -678,6 +1006,7 @@ button { font: inherit; color: inherit; }
     }
     if (S.step === 1 && S.tasks.done.includes(4)) return 'Store walk done by photo. Try the translated update, or tap <b>Next step</b>.';
     if (S.step === 2 && S.help.fetched) return 'Help is on the way in about 3 minutes. Try push-to-talk, or tap <b>Next step</b>.';
+    if (S.step === 3 && S.rush.mode === 'calm') return 'No rush at these numbers. Raise <b>shoppers per hour</b> in the agent panel to see the agent call one.';
     if (S.step === 3 && S.rush.mode === 'done') return 'The line stayed at 3 or fewer. Tap <b>Next step</b> for the manager view.';
     if (S.step === 4 && S.mgr.decision) return 'That is the full morning. Tap <b>Restart</b> to run the demo again.';
     return st.hintStart;
@@ -703,11 +1032,6 @@ button { font: inherit; color: inherit; }
       </div>
       <div class="ncard">
         <dl class="meta"><dt>Use case</dt><dd>${st.uc}</dd><dt>KPIs it moves</dt><dd>${st.kpi}</dd></dl>
-      </div>
-      <div class="ncard">
-        <h2 style="margin-bottom:8px">What the agent does here</h2>
-        <div class="loop">${['Sense', 'Decide', 'Act', 'Learn'].map((k, i) => `<div><b>${k}</b>${st.loop[i]}</div>`).join('')}</div>
-        <p class="guard" style="margin-top:10px">Why an agent: it re-plans the next hour every few minutes and closes the loop itself (spot, decide, page, log). A dashboard needs a manager watching it; a fixed rule cannot weigh a till against the stockroom.</p>
       </div>`;
   }
   function render() {
@@ -721,22 +1045,26 @@ button { font: inherit; color: inherit; }
   }
   function go(i) {
     clearTimers();
+    AG.running = false;
+    const prev = S.step;
     S.step = Math.max(0, Math.min(STEPS.length - 1, i));
     render();
+    if (prev !== S.step || !$('#agFeed')) agentEnter(S.step);
   }
 
   // ---------------- interactions ----------------
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest('button');
     if (!b) return;
+    if (b.dataset.ag || b.dataset.guard) return agentClick(b);
     if (b.id === 'next') return go(S.step + 1);
     if (b.id === 'prev') return go(S.step - 1);
-    if (b.id === 'restart') { clearTimers(); const s = 0; S = fresh(); S.step = s; return render(); }
+    if (b.id === 'restart') { clearTimers(); S = fresh(); AG = agFresh(); render(); return agentEnter(0); }
     if (b.dataset.step) return go(+b.dataset.step);
     if (b.dataset.go !== undefined) return go(+b.dataset.go);
-    if (b.dataset.task) { onTask(+b.dataset.task); return; }
-    if (b.dataset.lang) { S.tasks.lang = b.dataset.lang; return render(); }
-    if (b.dataset.ask) { onAsk(b.dataset.ask); return; }
+    if (b.dataset.task) { onTask(+b.dataset.task); agentHook('task', b); return; }
+    if (b.dataset.lang) { S.tasks.lang = b.dataset.lang; render(); return agentHook('lang', b); }
+    if (b.dataset.ask) { const fresh1 = !S.help.asked.includes(b.dataset.ask); onAsk(b.dataset.ask); if (fresh1) agentHook('ask', b); return; }
     const a = b.dataset.act;
     if (!a) return;
     const T = S.truck, K = S.tasks, H = S.help, R = S.rush, M = S.mgr;
@@ -745,7 +1073,7 @@ button { font: inherit; color: inherit; }
       case 'putaway': T.scanned.push(T.last); T.done = Math.min(12, T.done + 1); T.mode = 'list'; render(); break;
       case 'truckwhy': T.why = !T.why; render(); break;
       case 'taskwhy': K.why = K.why === 1 ? null : 1; render(); break;
-      case 'shoot': if (K.mode !== 'camera') break; K.mode = 'checking'; render(); later(() => { K.mode = 'photodone'; if (!K.done.includes(4)) K.done.push(4); render(); later(() => { K.mode = 'list'; render(); }, 3200); }, 1200); break;
+      case 'shoot': if (K.mode !== 'camera') return; K.mode = 'checking'; render(); later(() => { K.mode = 'photodone'; if (!K.done.includes(4)) K.done.push(4); render(); later(() => { K.mode = 'list'; render(); }, 3200); }, 1200); break;
       case 'accept': H.mode = 'accepted'; render(); break;
       case 'pass': H.mode = 'passed'; render(); break;
       case 'replay': if (S.step === 2) { S.help = fresh().help; } else { S.rush = fresh().rush; } render(); break;
@@ -760,6 +1088,7 @@ button { font: inherit; color: inherit; }
       case 'mgryes': M.decision = 'yes'; render(); break;
       case 'mgrno': M.decision = 'no'; render(); break;
     }
+    agentHook(a, b);
   });
   function onTask(id) {
     const K = S.tasks;
@@ -782,7 +1111,7 @@ button { font: inherit; color: inherit; }
   }
   // push-to-talk: hold to talk
   const pttDown = (ev) => { const b = ev.target.closest('[data-ptt]'); if (!b) return; ev.preventDefault(); S.help.ptt = 'on'; render(); };
-  const pttUp = () => { if (S.help.ptt === 'on') { S.help.ptt = 'sent'; render(); } };
+  const pttUp = () => { if (S.help.ptt === 'on') { S.help.ptt = 'sent'; render(); agentHook('ptt'); } };
   document.addEventListener('pointerdown', pttDown);
   document.addEventListener('pointerup', pttUp);
   document.addEventListener('keydown', (ev) => {
@@ -796,10 +1125,12 @@ button { font: inherit; color: inherit; }
     go,
     state: () => S,
     set(fn) { clearTimers(); fn(S); render(); },
-    reset() { clearTimers(); S = fresh(); render(); }
+    reset() { clearTimers(); S = fresh(); AG = agFresh(); render(); agentEnter(S.step); },
+    agent: () => AG
   };
   if (/^#step[1-5]$/.test(location.hash)) S.step = parseInt(location.hash.slice(5), 10) - 1;
   render();
+  agentEnter(S.step);
 })();
 </script>
 
